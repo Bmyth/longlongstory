@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="g-conner grid g-func"></div>
+
+    <div class="g-top grid g-func"><img src="assets/up.png" class="nav-img"></div>
+
+    <div class="g-conner grid g-func"></div>
+
+    <div class="g-left grid g-func"><img src="assets/left.png" class="nav-img"></div>
+
+    <div class="g-middle grid">
+        <div class="block-world">
+            <% for i in 0..47 do %>
+                <div class="block" coor-x= "<%= i%8 %>" coor-y= "<%= i/8 %>"></div>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="g-right grid g-func"><img src="assets/right.png" class="nav-img"></div>
+
+    <div class="g-conner grid g-func"></div>
+
+    <div class="g-bottom grid g-func"><img src="assets/down.png" class="nav-img"></div>
+
+    <div class="g-conner grid g-func"></div>
+</div>
+
+<ul class="block-buffer" style="display:none">
+    <% @blocks.each do |c| %>
+        <li class="block-item" bid="<%= c.id %>" coorX="<%= c.coorX%>" coorY="<%= c.coorY%>">
+            <p class="title"><%= c.title %></p>
+            <p class="img"><%= c.img %></p>
+        </li>
+    <% end %>
+</ul>
