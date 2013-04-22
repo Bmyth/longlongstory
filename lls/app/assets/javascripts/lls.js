@@ -99,7 +99,7 @@ var moveRight = function(){
   });  
 }
 
-var block_template = "<div class='block' coor-x='' coor-y=''></div>";
+var block_template = "<div class='block' coor-x='' coor-y='' status='blank'></div>";
 
 // d: 0-top 1-right 2-bottom 3-left
 var insertBlock =function(x, y, d){
@@ -118,6 +118,7 @@ var insertBlock =function(x, y, d){
     var selectString = ".block[coor-x='" + (x+1) + "'][coor-y='" + y + "']";
     item.insertBefore($(selectString));
   }
+  render_single_block(x,y);
 }
 
 var bind_nav_hover = function(){
@@ -134,6 +135,8 @@ var bind_nav_hover = function(){
 var render_blocks = function(){
   if($("block-buffer li").size() == 0){
     set_origin_block();
+  }else{
+    
   }
 }
 
@@ -143,16 +146,30 @@ var block_img_template = "<img class='block-img'>";
 
 var render_single_block = function(x, y){
   var selectString = ".block-buffer .block-item[coorX='" + x + "'][coorY='" + y + "']";
-  if($(selectString)){
+  if($(selectString).size() == 1){
     var title = $(block_title_template).text($(selectString).children(".title").text());
     var img = $(block_img_template).attr('src','assets/' + $(selectString).children(".img").text());
     var selectString2 = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
-    title.appendTo($(selectString2));
-    img.appendTo($(selectString2));
+    if($(selectString2).attr('status') == 'blank'){
+      title.appendTo($(selectString2));
+      img.appendTo($(selectString2));
+      $(selectString2).attr('status','writen');    
+    }else if($(selectString2).attr('status') == 'writen'){
+      clear_block(x,y);
+      title.appendTo($(selectString2));
+      img.appendTo($(selectString2));
+      $(selectString2).attr('status','writen'); 
+    }
   } 
 }
 
-var block_buffer_template = "<li class='block-item' bid='' coorX='' coorY=''><p class='title'></p><p class='img'></p></li>";
+var clear_block = function(x, y){
+  var selectString = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
+  $(selectString).find(".block-title").remove();
+  $(selectString).find(".block-img").remove();
+}
+
+var block_buffer_template = "<li class='block-item' bid='' coorX='' coorY='' status='blank'><p class='title'></p><p class='img'></p></li>";
 
 var set_origin_block = function(){
   var blockBuffer = $(block_buffer_template).attr({'bid':'0','coorX':'0','coorY':'0'});
