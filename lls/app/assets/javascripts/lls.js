@@ -8,6 +8,7 @@ $(function(){
   init_coordonate();
   bind_navigation();
   render_blocks();
+  bind_block_opt();
 });
 
 var coorXoffset = -1;
@@ -136,7 +137,7 @@ var render_blocks = function(){
   if($("block-buffer li").size() == 0){
     set_origin_block();
   }else{
-    
+
   }
 }
 
@@ -177,4 +178,17 @@ var set_origin_block = function(){
   blockBuffer.children(".img").text("origin.jpg");
   blockBuffer.appendTo($("ul.block-buffer"));
   render_single_block(0,0);
+  mark_block_writable(0,0);
 }
+
+var mark_block_writable = function(x, y){
+  var selectString = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
+  $(selectString).attr('status','writable');
+}
+
+//live bind not work...
+var bind_block_opt = function(){
+
+}
+
+
