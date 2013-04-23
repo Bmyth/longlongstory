@@ -109,17 +109,20 @@ var insertBlock =function(x, y, d){
     item.insertBefore($(".block:first"));
   }
   if(d == 1){
-    var selectString = ".block[coor-x='" + (x-1) + "'][coor-y='" + y + "']";
-    item.insertAfter($(selectString));    
+    item.insertAfter(get_block_by_coordinates(x-1, y));    
   }
   if(d == 2){
     item.insertAfter($(".block:last"));
   }
   if(d == 3){
-    var selectString = ".block[coor-x='" + (x+1) + "'][coor-y='" + y + "']";
-    item.insertBefore($(selectString));
+    item.insertBefore(get_block_by_coordinates(x+1, y));
   }
   render_single_block(x,y);
+}
+
+var get_block_by_coordinates = function(x, y){
+  var selectString = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
+  return $(selectString);
 }
 
 var bind_nav_hover = function(){
@@ -150,27 +153,27 @@ var render_single_block = function(x, y){
   if($(selectString).size() == 1){
     var title = $(block_title_template).text($(selectString).children(".title").text());
     var img = $(block_img_template).attr('src','assets/' + $(selectString).children(".img").text());
-    var selectString2 = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
-    if($(selectString2).attr('status') == 'blank'){
-      title.appendTo($(selectString2));
-      img.appendTo($(selectString2));
-      $(selectString2).attr('status','writen');    
-    }else if($(selectString2).attr('status') == 'writen'){
+    var block = get_block_by_coordinates(x, y);
+    if(block.attr('status') == 'blank'){
+      title.appendTo(block);
+      img.appendTo(block);
+      block.attr('status','writen');    
+    }else if(block.attr('status') == 'writen'){
       clear_block(x,y);
-      title.appendTo($(selectString2));
-      img.appendTo($(selectString2));
-      $(selectString2).attr('status','writen'); 
+      title.appendTo(block);
+      img.appendTo(block);
+      block.attr('status','writen'); 
     }
   } 
 }
 
 var clear_block = function(x, y){
-  var selectString = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
-  $(selectString).find(".block-title").remove();
-  $(selectString).find(".block-img").remove();
+  var block = get_block_by_coordinates(x,y);
+  block.find(".block-title").remove();
+  block.find(".block-img").remove();
 }
 
-var block_buffer_template = "<li class='block-item' bid='' coorX='' coorY='' status='blank'><p class='title'></p><p class='img'></p></li>";
+var block_buffer_template = "<li class='block-item' bid='' coorX='' coorY=''><p class='title'></p><p class='img'></p></li>";
 
 var set_origin_block = function(){
   var blockBuffer = $(block_buffer_template).attr({'bid':'0','coorX':'0','coorY':'0'});
@@ -182,13 +185,42 @@ var set_origin_block = function(){
 }
 
 var mark_block_writable = function(x, y){
-  var selectString = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
-  $(selectString).attr('status','writable');
+  get_block_by_coordinates(x,y).attr('status','writable');
 }
 
 //live bind not work...
+var focused_block_coorX;
+var focused_block_coorY;
 var bind_block_opt = function(){
+  $(".block[status='writable']").each(function(){
+    focused_block_coorX = parseInt($(this).attr('coor-x'));
+    focused_block_coorY = parseInt($(this).attr('coor-y'));
+    $(this).click(focused_on_block);
+  })
+}
 
+var nav_block_template = "<div class='nav-block'><p>nav</p></div>";
+
+var opt_block_template = "<div class='opt-block'><p>opt</p></div>";
+
+var mask_template = "<div class='mask'></div>"
+
+var focused_on_block = function(){
+  var seed_block = get_block_by_coordinates(focused_block_coorX, focused_block_coorY).clone();
+  var init_left = 160 * (focused_block_coorX + 2 + coorXoffset);
+  var init_top = 160 * (focused_block_coorY + 2 + coorYoffset);
+  seed_block.css({position:'absolute', top:init_top+ 'px', left:init_left+ 'px', 'background-color':'white'});
+  $(mask_template).css({position:'absolute', top:init_top+ 'px', left:init_left+ 'px'}).appendTo($(".block-world"));
+  seed_block.appendTo($(".block-world"));
+
+  // seed_block.animate({top:'160px', left:'160px', width:'638px', height:'638px'});
+  seed_block.animate({top:'160px'});
+  seed_block.animate({left:'160px'});
+  seed_block.animate({width:'638px', height:'638px'},function(){
+    $(nav_block_template).appendTo($(".block-world"));
+    $(opt_block_template).appendTo($(".block-world"));
+    $(".block-world").find(".mask").remove();    
+  });
 }
 
 
