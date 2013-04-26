@@ -23,12 +23,3 @@
 
     <div class="g-conner grid g-func"></div>
 </div>
-
-<ul class="block-buffer" style="display:none">
-    <% @blocks.each do |c| %>
-        <li class="block-item" bid="<%= c.id %>" coorX="<%= c.coorX%>" coorY="<%= c.coorY%>">
-            <p class="title"><%= c.title %></p>
-            <p class="img"><%= c.img %></p>
-        </li>
-    <% end %>
-</ul>
