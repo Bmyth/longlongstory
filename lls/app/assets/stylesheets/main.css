@@ -102,19 +102,50 @@
   border: 1px solid #ddd;
 }
 
-.opt-block{
-  position: absolute;
-  top: 480px;
-  left: 800px;
-  background-color: #fff;
-  width: 318px;
-  height: 318px;
-  border: 1px solid #ddd;
-}
-
 .mask{
   width: 158px;
   height: 158px;
   border: 1px solid #ddd;
   background-color: #fff;  
 }
+
+.templates{ 
+  display: none;
+}
+
+.opt-block{
+  position: absolute;
+  top: 480px;
+  left: 800px;
+  background-color: #fff;
+  width: 320px;
+  height: 320px;
+  overflow: hidden;  
+}
+
+.opt-block .sub-block{
+  border: 1px solid #ddd;  
+  width: 158px;
+  height: 158px;
+  float: left;
+}
+
+.opt-add-block .opt-row{
+  margin: 20px;
+  height: 80px;
+}
+
+.opt-add-block .opt-row .submit{
+  color: #000;
+  text-decoration: none;
+}
+
+.opt-add-form{
+  margin-top: 40px;
+}
+
+.ghost{
+  display: none;
+}
+
+

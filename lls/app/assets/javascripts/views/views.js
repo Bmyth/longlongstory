@@ -9,8 +9,11 @@ Lls.Views.Blocks = Backbone.View.extend({
 		coorXoffset = -1;
 		coorYoffset = -1;
 		Lblock = 160;
+		focused_block_coorX = 0;
+		focused_block_coorY = 0;
 		this.init_coordonate();
 		this.bind_navigation();
+		this.bind_block_opt();
 
 		this.blocks.fetch({success : function(){
 			initialized = true;
@@ -41,6 +44,12 @@ Lls.Views.Blocks = Backbone.View.extend({
 	  })
 	},
 
+	bind_block_opt : function(){
+	  $(".block[status='blank']").each(function(){
+	    $(this).click(global_blocl_view.focused_on_block);
+	  })
+	},
+
 	render : function() {
 		var that = this;
 		if(!initialized){
@@ -60,7 +69,7 @@ Lls.Views.Blocks = Backbone.View.extend({
 		var y = block_data.get('coorY');
 
     var title = $(block_title_template).text(block_data.get('title'));
-    var img = $(block_img_template).attr('src','assets/' + block_data.get('img'));
+    var img = $(block_img_template).attr('src',block_data.get('img').url);
     var block = this.get_block_by_coordinates(x, y);
     if(block.attr('status') == 'blank'){
       title.appendTo(block);
@@ -191,5 +200,63 @@ Lls.Views.Blocks = Backbone.View.extend({
 	    item.insertBefore(this.get_block_by_coordinates(x+1, y));
 	  }
 	  this.render_single_block(x,y);
+	},
+
+	focused_on_block : function(){
+		focused_block_coorX = parseInt($(this).attr('coor-x'));
+		focused_block_coorY = parseInt($(this).attr('coor-y'));
+
+		var mask_template = "<div class='mask'></div>";
+	  var seed_block = global_blocl_view.get_block_by_coordinates(focused_block_coorX, focused_block_coorY).clone().addClass('focused-block');
+	  var init_left = 160 * (focused_block_coorX + 2 + coorXoffset);
+	  var init_top = 160 * (focused_block_coorY + 2 + coorYoffset);
+
+	  seed_block.css({position:'absolute', top:init_top+ 'px', left:init_left+ 'px', 'background-color':'white', 'border-color': '#000'});
+	  $(mask_template).css({position:'absolute', top:init_top+ 'px', left:init_left+ 'px'}).appendTo($(".block-world"));
+	  seed_block.appendTo($(".block-world"));
+
+	  seed_block.animate({top:'160px'});
+	  seed_block.animate({left:'160px'});
+	  seed_block.animate({width:'638px', height:'638px'},function(){
+	  	$(this).css('border-color', '#ddd');
+	    $(".templates .nav-block").appendTo($(".block-world"));
+	    $(".templates .opt-block").appendTo($(".block-world"));
+	    $(".block-world").find(".mask").remove();
+	    global_blocl_view.bind_sub_opt();    
+	  });
+	},
+
+	bind_sub_opt : function(){
+		$(".opt-block .sub-block-1").click(this.showAddBlock);
+		$(".opt-block .sub-block-3").click(this.clearBlock);
+		$(".opt-block .sub-block-4").click(this.quitFocused);
+	},
+
+	showAddBlock : function(){
+		$(this).animate({width:'318px', height:'318px'}, function(){
+			$('.templates .opt-add-form').appendTo($(this));
+			$('.opt-add-form .coorx').val(focused_block_coorX);
+			$('.opt-add-form .coory').val(focused_block_coorY);
+		});
+	},
+
+	clearBlock : function(){
+		var block = global_blocl_view.get_block_data_by_coordinates(focused_block_coorX, focused_block_coorY);
+		global_blocl_view.blocks.remove(block,{success:function(){
+			alert(global_blocl_view.blocks.length);
+		}});
+	},
+
+	bind_add_submit : function(){
+		var block = new Lls.Models.Block();
+		var title = $(".opt-add-block .title").val();
+		var img = $(".opt-add-block .img").val();
+	},
+
+	quitFocused : function(){
+		$(".block-world").find(".focused-block").remove();
+		$(".block-world").find(".opt-block").remove();
+		$(".block-world").find(".nav-block").remove();
 	}
+
 });

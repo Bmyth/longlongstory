@@ -23,3 +23,38 @@
 
     <div class="g-conner grid g-func"></div>
 </div>
+
+<div class = 'templates'>
+    <div class = 'nav-block'>
+        nav
+    </div>
+    <div class = 'opt-block'>
+        <div class = 'sub-block-1 sub-block'>add</div>
+        <div class = 'sub-block-2 sub-block'>edit</div>
+        <div class = 'sub-block-3 sub-block'>clear</div>
+        <div class = 'sub-block-4 sub-block'>quit</div>
+    </div>
+    <div class = 'opt-add-block'>
+        <div class= 'opt-row'>
+            <input class='title' placeholder = 'title'>
+        </div>
+        <div class= 'opt-row'>
+            img<input class='img' type='file' name = 'img'>
+        </div>
+        <div class= 'opt-row'>
+            <a class='submit' href='#'> ~>submit</a>
+        </div>
+    </div>
+    <div class = 'opt-add-form'>
+        <%= form_for :block, :url => "/create" do |f| %>
+          <%= f.label :title, "title" %>
+          <%= f.text_field :title %>
+          <br>
+          <%= f.label :img, "img" %>
+          <%= f.file_field :img %> 
+          <%= f.submit :value=> "submit", :class => "button" %>
+          <%= f.text_field :coorX , :class => "ghost coorx" %>
+          <%= f.text_field :coorY , :class => "ghost coory" %>
+        <% end %>
+    </div>
+</div>
