@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="g-conner grid g-func"></div>
+
+    <div class="g-top grid g-func">
+        <div class="top-sec go-left"><</div>
+        <div class="top-sec"></div>
+        <div class="top-sec"></div>
+        <div class="top-sec"></div>
+        <div class="top-sec"></div>
+        <div class="top-sec go-right">></div>
+    </div>
+
+    <div class="g-conner grid g-func"></div>
+
+    <div class="g-left grid g-func">
+        <div class="left-sec go-up">/\</div>
+        <div class="left-sec"></div>
+        <div class="left-sec"></div>
+        <div class="left-sec go-down">\/</div>
+    </div>
+
+    <div class="g-middle grid">
+        <div class="block-world">
+            <% for i in 0..47 do %>
+                <div class="block" coor-x= "<%= i%8 %>" coor-y= "<%= i/8 %>" status="blank"></div>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="g-right grid g-func"></div>
+
+    <div class="g-conner grid g-func"></div>
+
+    <div class="g-bottom grid g-func"></div>
+
+    <div class="g-conner grid g-func"></div>
+</div>
+
+<div class = 'templates'>
+    <div class = 'nav-block' style = "height:0px">
+        nav
+    </div>
+    <div class = 'opt-block' style = "height:0px">
+        <div class = 'block-add sub-block'>+</div>
+        <div class = 'block-x sub-block'>o</div>
+        <div class = 'block-empty sub-block'>~</div>
+        <div class = 'block-back sub-block'><</div>
+    </div>
+    <div class = 'block-add-form'>
+        <%= form_for :block, :url => "/create" do |f| %>
+          <div class = 'title add-opt'>>title
+            <p><%= f.text_field :title %></p>
+          </div>
+          <div class = 'img add-opt'>>image
+            <%= f.file_field :img %> 
+          </div>
+          <div class = 'script add-opt'>>script</div>
+          <div class = 'back add-opt'><</div>
+          <%= f.text_field :coorX , :class => "ghost coorx" %>
+          <%= f.text_field :coorY , :class => "ghost coory" %>
+        <% end %>
+    </div>
+</div>
