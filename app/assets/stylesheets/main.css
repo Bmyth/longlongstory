@@ -151,13 +151,13 @@
   display: none;
 }
 
-.single-block-frame{
+.studio{
   width: 960px;
   height: 640px;
   position: relative;
 }
 
-.single-block-frame .block-add-form{
+.studio .block-add-form{
     position: absolute;
     z-index: 5;
     top : 0;
@@ -165,36 +165,29 @@
     background-color: #fff;
 }
 
-.single-block-frame .block-add-form .add-opt{
+.studio .block-add-form .add-opt{
   width: 318px;
   height: 158px;
   border: 1px solid #ddd;
   border-left: none;
 }
 
-.focused-block{
+.dis-block{
   border: 1px solid #ddd;
   overflow: hidden;
+  position: absolute;
+  height: 638px;
+  width: 638px;
+  background-color: #fff;
 }
 
-.focused-block .block-img{
+.dis-block .block-img{
     max-width: 640px;
     max-height: 640px;
 }
 
-.focused-block .block-title{
+.dis-block .block-title{
     text-align: center;
     margin: 10px;
-}
-
-.title-board{
-  position: absolute;
-  background-color: #eee;
-  width: 638px;
-  height: 160px;
-  z-index: 8;
-  left: 0px;
-  top: -160px;
-  opacity: 0.8;
 }
 

@@ -4,11 +4,11 @@ Lls.Routers.Main = Backbone.Router.extend({
 		"/" : "index"
 	},
 
-  initialize : function(){
-    this.view = new Lls.Views.Blocks();
-  },
+    initialize : function(){
+        this.view = new Lls.Views.Main();
+    },
 
-	index: function(){
-    this.view.render();
-	}
+    index: function(){
+        this.view.render();
+    }
 });
