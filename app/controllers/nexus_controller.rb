@@ -8,13 +8,29 @@ class NexusController < ApplicationController
     render :json => (Block.find :all).to_json
   end
 
+  def add_block
+    block = Block.create!
+    block.title = params[:title]
+    block.coorX = params[:coorX]
+    block.coorY = params[:coorY]
+    block.save!
+    render :json => {:success => 'y'}
+  end
+
+  def update_block
+    block = Block.find(params[:id])
+    block.title = params[:title]
+    block.save!
+    render :json => {:success => 'y'}
+  end
+
   def create_block
     block = Block.create! params[:block]
     redirect_to "/"
   end
 
   def delete_block
-    block = Block.find (params[:id])
+    block = Block.find(params[:id])
     block.destroy
     render :json => {'result' => 'success'}
   end
