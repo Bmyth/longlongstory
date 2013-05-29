@@ -37,15 +37,17 @@
 </div>
 
 <div class = 'templates'>
-    <div class = 'dis-block'></div>
+    <div class = 'dis-block'>
+      <div class = 'title-board'></div>
+    </div>
     <div class = 'nav-block' style = "height:0px">
         nav
     </div>
     <div class = 'opt-block' style = "height:0px">
-        <div class = 'block-add sub-block'>+</div>
-        <div class = 'block-x sub-block'>o</div>
-        <div class = 'block-empty sub-block'>~</div>
-        <div class = 'block-back sub-block'><</div>
+        <div class = 'add sub'>+</div>
+        <div class = 'x sub'>o</div>
+        <div class = 'empty sub'>~</div>
+        <div class = 'back sub'><</div>
     </div>
     <div class = 'block-add-form'>
         <%= form_for :block, :url => "/create" do |f| %>

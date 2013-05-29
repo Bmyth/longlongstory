@@ -112,14 +112,14 @@
   overflow: hidden;  
 }
 
-.opt-block .sub-block{
+.opt-block .sub{
   border: 1px solid #ddd;  
   width: 158px;
   height: 158px;
   float: left;
 }
 
-.opt-block .sub-block:hover{
+.opt-block .sub:hover{
   font-size: 30px;
   font-weight: bold;
 }
@@ -186,8 +186,13 @@
     max-height: 640px;
 }
 
-.dis-block .block-title{
+.dis-block .title-board{
+    position: absolute;
+    top: -160px;
+    background-color: #fff;
+    width: 638px;
+    height: 158px;
+    border: 1px solid #ddd;
     text-align: center;
-    margin: 10px;
 }
 

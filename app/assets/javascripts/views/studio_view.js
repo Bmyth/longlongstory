@@ -1,9 +1,9 @@
 Lls.Views.Studio = Backbone.View.extend({
 
     initialize : function(){
-        this.optView = new Lls.Views.StudioOpt();
-        this.navView = new Lls.Views.StudioNav();
-        this.disView = new Lls.Views.StudioDis();
+        global_studio_opt_view = new Lls.Views.StudioOpt();
+        global_studio_nav_view = new Lls.Views.StudioNav();
+        global_studio_dis_view = new Lls.Views.StudioDis();
     },
 
     show : function() {
@@ -11,14 +11,18 @@ Lls.Views.Studio = Backbone.View.extend({
         focused_block_coorY = parseInt($(this).attr('coor-y'));
 
         global_studio_view.create();
-        global_studio_view.optView.create();
-        global_studio_view.navView.create();
-        global_studio_view.disView.create();
+        global_studio_opt_view.create();
+        global_studio_nav_view.create();
+        global_studio_dis_view.create();
         global_side_view.hide_navigation();
     },
 
     create : function(){
         var studio_template = "<div class='studio'></div>"
         $(studio_template).appendTo($('.g-middle'));
+    },
+
+    delete :function(){
+        $(".g-middle").find(".studio").remove();
     }
 });

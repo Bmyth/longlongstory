@@ -8,7 +8,7 @@ Lls.Views.StudioNav = Backbone.View.extend({
 	},
 
 	hide : function(){
-	    $(".g-middle .nav-block").hide();
+	    $(".g-middle .studio .nav-block").hide();
 	},
 
     show : function(){

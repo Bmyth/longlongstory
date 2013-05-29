@@ -5,6 +5,14 @@ Lls.Views.StudioDis = Backbone.View.extend({
 
     create : function(){
         $(".templates .dis-block").clone().appendTo($(".g-middle .studio"));
-//        seed_block.css({width:'638px', height:'638px',position:'absolute', top:'0px', left:'0px', 'border-color':'#ddd', 'background-color': 'white'}).appendTo($(".single-block-frame"));
+    },
+
+    show_title : function(){
+        var t = $("input#block_title").val();
+        $(".studio .title-board").text(t).animate({top:'0px'});
+    },
+
+    hide_title : function(){
+        $(".studio .title-board").animate({top:'-160px'});
     }
 });
