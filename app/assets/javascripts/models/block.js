@@ -5,6 +5,7 @@ Lls.Models.Block = Backbone.Model.extend({
 	img : "",
     coorX : "",
     coorY : "",
+    id: "",
 	
 	initialize : function() {
 		

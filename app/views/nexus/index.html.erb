@@ -36,9 +36,20 @@
     <div class="g-conner grid g-func"></div>
 </div>
 
+<div class = 'ghost-form' style = 'display: none'>
+  <div class = 'block-img-form'>
+      <%= form_for :block, :url => "/image_upload" do |f| %>
+          <%= f.file_field :img %>
+          <%= f.text_field :coorX %>
+          <%= f.text_field :coorY %>
+      <% end %>
+  </div>
+</div>
+
 <div class = 'templates'>
     <div class = 'dis-block'>
       <div class = 'title-board'></div>
+      <div class = 'image-board'><img></img></div>
     </div>
     <div class = 'nav-block' style = "height:0px">
         nav
@@ -50,17 +61,12 @@
         <div class = 'back sub'><</div>
     </div>
     <div class = 'block-add-form'>
-        <%= form_for :block, :url => "/create" do |f| %>
-          <div class = 'title add-opt'>>title
-            <p><%= f.text_field :title %></p>
-          </div>
-          <div class = 'img add-opt'>>image
-            <%= f.file_field :img %> 
-          </div>
-          <div class = 'script add-opt'>>script</div>
-          <div class = 'back add-opt'><</div>
-          <%= f.text_field :coorX , :class => "ghost coorx" %>
-          <%= f.text_field :coorY , :class => "ghost coory" %>
-        <% end %>
+      <div class = 'title add-opt'>>title
+        <p></p>
+      </div>
+      <div class = 'img add-opt'>>image
+      </div>
+      <div class = 'script add-opt'>>script</div>
+      <div class = 'back add-opt'><</div>
     </div>
 </div>

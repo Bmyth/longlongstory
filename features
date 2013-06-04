@@ -1,3 +1,5 @@
 #1 title edit
   when hover, into edit mode, and display title in main window
-  if title changed and mouse out, title will be saved, and title hide in main window. 
+  if title changed and mouse out, title will be saved, and title hide in main window.
+#2 image edit
+  upload and update image in a fancy way

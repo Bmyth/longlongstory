@@ -19,12 +19,10 @@ Lls.Views.Main = Backbone.View.extend({
 	},
 
     render : function() {
-        if(!initialized){
+        if(!initialized)
             return false;
-        }
-        if(this.blocks != undefined){
-            global_grid_view.render();
-        }
+
+        global_grid_view.render();
     },
 
     //should go to grid view

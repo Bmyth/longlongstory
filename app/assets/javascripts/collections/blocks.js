@@ -27,6 +27,19 @@ Lls.Collections.Blocks = Backbone.Collection.extend({
         }
     },
 
+    update_block_image_at : function(x, y, b){
+        var block = this.get_block_data_at(x, y);
+        if(block == 0){
+            $(".ghost-form .block-img-form form").ajaxSubmit({success:function(){
+                global_blocks.fetch({success:b});
+            }});
+        }else{
+            $(".ghost-form .block-img-form form").ajaxSubmit({success:function(){
+                global_blocks.update();
+            }});
+        }
+    },
+
     delete_block_at : function(x, y, b){
         var that = this;
         this.forEach(function(block){

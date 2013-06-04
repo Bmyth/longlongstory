@@ -24,15 +24,15 @@ class NexusController < ApplicationController
     render :json => {:success => 'y'}
   end
 
-  def create_block
+  def create_block_with_image
     block = Block.create! params[:block]
-    redirect_to "/"
+    render :json => block
   end
 
   def delete_block
     block = Block.find(params[:id])
     block.destroy
-    render :json => {'result' => 'success'}
+    render :json => {:success => 'y'}
   end
 
   def clear_all

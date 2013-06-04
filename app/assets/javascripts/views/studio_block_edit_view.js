@@ -1,7 +1,7 @@
 Lls.Views.StudioBlockEdit = Backbone.View.extend({
 
     initialize : function(){
-
+        $(".ghost-form .block-img-form form").ajaxForm();
     },
 
     create : function(){
@@ -27,28 +27,38 @@ Lls.Views.StudioBlockEdit = Backbone.View.extend({
         if(block != 0){
             $("input#block_title").val(block.get('title'));
         }
+        $(".ghost-form .block-img-form form input#block_coorX").val(focused_block_coorX);
+        $(".ghost-form .block-img-form form input#block_coorY").val(focused_block_coorY);
     },
 
     bind_opt : function(){
         $(".block-add-form .add-opt.title").hover(this.in_title_edit, this.out_title_edit);
-        $(".block-add-form input#block_title").change(global_block_edit_view.title_change);
+        $(".ghost-form .block-img-form input#block_title").change(this.title_change);
+        $(".ghost-form .block-img-form input#block_img").change(this.upload_image);
+        $(".block-add-form .add-opt.img").click(this.edit_image);
         $(".block-add-form .add-opt.back").click(this.back);
     },
 
     in_title_edit : function(){
-        $("input#block_title").focus();
         global_studio_dis_view.show_title();
     },
 
     out_title_edit : function(){
-        $("input#block_title").blur();
         global_studio_dis_view.hide_title();
     },
 
     title_change : function(){
-        var text = $("input#block_title").val();
-        global_blocks.update_block_title_at(focused_block_coorX, focused_block_coorY, text);
+//        var text = $(".studio input#block_title").val();
+        global_blocks.update_block_title_at(focused_block_coorX, focused_block_coorY, "text");
         global_studio_dis_view.update_title();
+    },
+
+    upload_image : function(){
+        global_blocks.update_block_image_at(focused_block_coorX, focused_block_coorY, global_studio_dis_view.update_image);
+    },
+
+    edit_image : function(){
+       $(".ghost-form .block-img-form input#block_img").click();
     },
 
     back : function(){

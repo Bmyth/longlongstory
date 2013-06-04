@@ -10,5 +10,5 @@ var Lls = {
 };
 
 $(document).ready(function(){
-  Lls.initialize();
+    Lls.initialize();
 });

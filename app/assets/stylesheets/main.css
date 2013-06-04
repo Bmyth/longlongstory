@@ -181,7 +181,11 @@
   background-color: #fff;
 }
 
-.dis-block .block-img{
+.dis-block .image-board{
+    overflow: hidden;
+}
+
+.dis-block .image-board img{
     max-width: 640px;
     max-height: 640px;
 }

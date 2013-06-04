@@ -15,6 +15,7 @@
 //= lls
 //= require underscore
 //= require backbone
+//= require jquery.form.min
 //= require lls
 //= require_tree ../templates
 //= require_tree ./models
