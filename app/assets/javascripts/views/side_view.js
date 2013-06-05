@@ -22,8 +22,8 @@ Lls.Views.Side = Backbone.View.extend({
     show_navigation :function(){
         $(".top-sec.go-left").text("<");
         $(".top-sec.go-right").text(">");
-        $(".left-sec.go-up").text("/\\");
-        $(".left-sec.go-down").text("\/");
+        $(".left-sec.go-up").text('/\\');
+        $(".left-sec.go-down").text("\\/");
         this.bind_navigation();
     },
 

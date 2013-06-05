@@ -39,12 +39,17 @@ Lls.Views.StudioBlockEdit = Backbone.View.extend({
         $(".block-add-form .add-opt.back").click(this.back);
     },
 
-    in_title_edit : function(){
-        global_studio_dis_view.show_title();
+    in_image_edit : function(){
+        if(global_blocks.block_has_image_at(focused_block_coorX, focused_block_coorY)){
+
+        }
+        else{
+
+        }
     },
 
-    out_title_edit : function(){
-        global_studio_dis_view.hide_title();
+    out_image_edit : function(){
+
     },
 
     title_change : function(){

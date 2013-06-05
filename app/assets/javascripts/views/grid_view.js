@@ -30,7 +30,8 @@ Lls.Views.Grid = Backbone.View.extend({
         var y = block_data.get('coorY');
 
         var block = this.get_block_at(x, y);
-        $(block_img_template).attr('src',block_data.get('img').url).appendTo(block);
+
+        $(block_img_template).attr('src',block_data.get('img').thumb.url).appendTo(block);
     },
 
     render_block_at : function(x, y){
@@ -56,7 +57,7 @@ Lls.Views.Grid = Backbone.View.extend({
 
     },
 
-    moveUp : function(){
+    moveDown : function(){
         $(".block-world").animate({top: '-320px'},"fast",function(){
             $(".block-world .block").each(function(){
                 if(parseInt($(this).attr('coor-y')) == minY){
@@ -75,7 +76,7 @@ Lls.Views.Grid = Backbone.View.extend({
         });
     },
 
-    moveDown : function(){
+    moveUp : function(){
         $(".block-world").animate({top: '0px'},"fast",function(){
             $(".block-world .block").each(function(){
                 if(parseInt($(this).attr('coor-y')) == maxY){
@@ -94,7 +95,7 @@ Lls.Views.Grid = Backbone.View.extend({
         });
     },
 
-    moveLeft : function(){
+    moveRight : function(){
         $(".block-world").animate({left: '-320px'},"fast",function(){
             $(".block-world .block").each(function(){
                 if(parseInt($(this).attr('coor-x')) == minX){
@@ -113,7 +114,7 @@ Lls.Views.Grid = Backbone.View.extend({
         });
     },
 
-    moveRight : function(){
+    moveLeft : function(){
         $(".block-world").animate({left: '0px'},"fast",function(){
             $(".block-world .block").each(function(){
                 if(parseInt($(this).attr('coor-x')) == maxX){

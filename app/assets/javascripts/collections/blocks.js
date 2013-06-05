@@ -40,6 +40,13 @@ Lls.Collections.Blocks = Backbone.Collection.extend({
         }
     },
 
+    block_has_image_at : function(x, y){
+        var block = this.get_block_data_at(x, y);
+        if(block == 0)
+            return false;
+        return true;
+    },
+
     delete_block_at : function(x, y, b){
         var that = this;
         this.forEach(function(block){

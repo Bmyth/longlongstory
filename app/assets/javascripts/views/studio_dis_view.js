@@ -36,5 +36,6 @@ Lls.Views.StudioDis = Backbone.View.extend({
 
     update_image :function(){
         global_studio_dis_view.render_image_board();
+        global_grid_view.render_block_at(focused_block_coorX, focused_block_coorY);
     }
 });
