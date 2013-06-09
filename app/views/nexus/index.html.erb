@@ -40,6 +40,7 @@
   <div class = 'block-img-form'>
       <%= form_for :block, :url => "/image_upload" do |f| %>
           <%= f.file_field :img %>
+          <%= f.text_field :title %>
           <%= f.text_field :coorX %>
           <%= f.text_field :coorY %>
       <% end %>
@@ -49,7 +50,7 @@
 <div class = 'templates'>
     <div class = 'dis-block'>
       <div class = 'title-board'></div>
-      <div class = 'image-board'><img></img></div>
+      <div class = 'image-board'><img/></div>
     </div>
     <div class = 'nav-block' style = "height:0px">
         nav
@@ -62,7 +63,8 @@
     </div>
     <div class = 'block-add-form'>
       <div class = 'title add-opt'>>title
-        <p></p>
+        <input class = 'title-input'>
+        <span></span>
       </div>
       <div class = 'img add-opt'>>image
       </div>

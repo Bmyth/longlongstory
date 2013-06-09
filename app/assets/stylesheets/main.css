@@ -129,8 +129,25 @@
   font-weight: bold;  
 }
 
-.add-opt input#block_title{
-  border: none;
+.add-opt.title input{
+    position: absolute;
+    width: 316px;
+    left: 0;
+    top: 40px;
+    border-left: 0;
+    border-right: 0;
+    display: none;
+}
+
+.add-opt.title span{
+    position: absolute;
+    width: 316px;
+    left: 0;
+    top: 40px;
+}
+
+.add-opt.title input:focus{
+    outline: none;
 }
 
 .opt-add-block .opt-row{

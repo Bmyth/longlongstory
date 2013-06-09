@@ -20,14 +20,21 @@ Lls.Views.StudioDis = Backbone.View.extend({
         }
     },
 
+    render_title_board : function(){
+        var block_data = global_blocks.get_block_data_at(focused_block_coorX, focused_block_coorY);
+        if(block_data != 0){
+            if(block_data.get('title'))
+                $('.dis-block .title-board').text(block_data.get('title'));
+        }
+    },
+
     show_title : function(){
-        var t = $("input#block_title").val();
-        $(".studio .title-board").text(t).animate({top:'0px'});
+        this.render_title_board();
+        $(".studio .title-board").animate({top:'0px'});
     },
 
     update_title : function(){
-        var t = $("input#block_title").val();
-        $(".studio .title-board").text(t);
+        global_studio_dis_view.render_title_board();
     },
 
     hide_title : function(){

@@ -17,13 +17,12 @@ Lls.Collections.Blocks = Backbone.Collection.extend({
         return result;
     },
 
-    update_block_title_at : function(x, y, t){
+    update_block_title_at : function(x, y, t, b){
         var block = this.get_block_data_at(x, y);
         if(block == 0){
-            this.create({'title':t, 'coorX':x, 'coorY':y});
+            this.create({'title':t, 'coorX':x, 'coorY':y},{success:b});
         }else{
-            block.set({'title':t});
-            block.save();
+            block.save({'title':t},{success:b});
         }
     },
 

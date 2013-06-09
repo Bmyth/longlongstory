@@ -8,6 +8,10 @@ class NexusController < ApplicationController
     render :json => (Block.find :all).to_json
   end
 
+  def update_blocks
+    add_block
+  end
+
   def add_block
     block = Block.create!
     block.title = params[:title]
