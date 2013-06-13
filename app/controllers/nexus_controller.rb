@@ -33,6 +33,16 @@ class NexusController < ApplicationController
     render :json => block
   end
 
+  def update_block_with_image
+    block = Block.find(params[:block][:id])
+    if !block.nil?
+      block.update_attributes!(params[:block])
+      render :json => block
+    else
+      render :json => {:success => 'n'}
+    end
+  end
+
   def delete_block
     block = Block.find(params[:id])
     block.destroy

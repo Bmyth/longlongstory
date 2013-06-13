@@ -37,6 +37,7 @@ Lls.Views.Grid = Backbone.View.extend({
     render_block_at : function(x, y){
         var block = global_blocks.get_block_data_at(x,y);
         if(block != 0){
+            this.empty_block_at(x, y);
             this.render_block_with(block);
         }
     },

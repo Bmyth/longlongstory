@@ -33,8 +33,10 @@ Lls.Collections.Blocks = Backbone.Collection.extend({
                 global_blocks.fetch({success:b});
             }});
         }else{
-            $(".ghost-form .block-img-form form").ajaxSubmit({success:function(){
-                global_blocks.update();
+            $(".ghost-form .id-input input").val(block.get('id')).appendTo($(".ghost-form .block-img-form form"));
+            $(".ghost-form .block-img-form form").attr("action", "/image_update");
+            $(".ghost-form .block-img-form form").ajaxSubmit({success:function(r){
+                global_blocks.fetch({success:b});
             }});
         }
     },
