@@ -28,9 +28,9 @@ class NexusController < ApplicationController
     render :json => {:success => 'y'}
   end
 
-  def create_block_with_image
+  def create_block_with_body
     block = Block.create! params[:block]
-    render :json => block
+    redirect_to "/"
   end
 
   def update_block_with_image

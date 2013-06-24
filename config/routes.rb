@@ -5,7 +5,7 @@ Lls::Application.routes.draw do
   match '/api/blocks' => 'nexus#add_block', :via => :post
   match '/api/blocks/:id' => 'nexus#update_block', :via => :put
   match '/api/blocks/:id' => 'nexus#delete_block', :via => :delete
-  match '/image_upload' => 'nexus#create_block_with_image', :via => :post
+  match '/body_upload' => 'nexus#create_block_with_body', :via => :post
   match '/image_update' => 'nexus#update_block_with_image', :via => :post
   match '/zero' => 'nexus#clear_all', :via => :get
   root :to => 'nexus#index'

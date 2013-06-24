@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'pry'
+gem 'rails_kindeditor', '~> 0.3.19'
 
 # Gems used only for assets and not required
 # in production environments by default.

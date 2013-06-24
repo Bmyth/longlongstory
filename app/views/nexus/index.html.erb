@@ -1,77 +1,31 @@
 <div class="container">
-    <div class="g-conner grid g-func"></div>
-
-    <div class="g-top grid g-func">
-        <div class="top-sec go-left"><</div>
-        <div class="top-sec"></div>
-        <div class="top-sec"></div>
-        <div class="top-sec"></div>
-        <div class="top-sec"></div>
-        <div class="top-sec go-right">></div>
+    <div class= 'editor-form' style="display: none">
+        <%= form_for :block, :url => "/body_upload" do |f| %>
+            <%= f.kindeditor :body, :simple_mode => true %>
+            <%= f.text_field :coorX, :class => 'invisible cx' %>
+            <%= f.text_field :coorY, :class => 'invisible cy' %>
+            <%= f.submit :value=> "submit", :class => "btn" %>
+        <% end %>
     </div>
 
-    <div class="g-conner grid g-func"></div>
+    <div class="block-container">
 
-    <div class="g-left grid g-func">
-        <div class="left-sec go-up">/\</div>
-        <div class="left-sec"></div>
-        <div class="left-sec"></div>
-        <div class="left-sec go-down">\/</div>
+      <div class='up-nav'></div>
+      <div class='right-nav'></div>
+      <div class='down-nav'></div>
+      <div class='left-nav'></div>
     </div>
-
-    <div class="g-middle grid">
-        <div class="block-world">
-            <% for i in 0..47 do %>
-                <div class="block" coor-x= "<%= i%8 %>" coor-y= "<%= i/8 %>" status="blank"></div>
-            <% end %>
-        </div>
-    </div>
-
-    <div class="g-right grid g-func"></div>
-
-    <div class="g-conner grid g-func"></div>
-
-    <div class="g-bottom grid g-func"></div>
-
-    <div class="g-conner grid g-func"></div>
 </div>
 
-<div class = 'ghost-form' style = 'display: none'>
-  <div class = 'block-img-form'>
-      <%= form_for :block, :url => "/image_upload" do |f| %>
-          <%= f.file_field :img %>
-          <%= f.text_field :title %>
-          <%= f.text_field :coorX %>
-          <%= f.text_field :coorY %>
-      <% end %>
-  </div>
-  <div class = 'id-input'>
+
+<!--template element and invisible form-->
+<div class='ghost-form' style='display: none'>
+  <div class='id-input'>
     <input id="block_id" name="block[id]" type="text">
   </div>
 </div>
 
-<div class = 'templates'>
-    <div class = 'dis-block'>
-      <div class = 'title-board'></div>
-      <div class = 'image-board'><img/></div>
-    </div>
-    <div class = 'nav-block' style = "height:0px">
-        nav
-    </div>
-    <div class = 'opt-block' style = "height:0px">
-        <div class = 'add sub'>+</div>
-        <div class = 'x sub'>o</div>
-        <div class = 'empty sub'>~</div>
-        <div class = 'back sub'><</div>
-    </div>
-    <div class = 'block-add-form'>
-      <div class = 'title add-opt'>>title
-        <input class = 'title-input'>
-        <span></span>
-      </div>
-      <div class = 'img add-opt'>>image
-      </div>
-      <div class = 'script add-opt'>>script</div>
-      <div class = 'back add-opt'><</div>
-    </div>
+<div class='templates' style='display: none'>
+  <!--block template-->
+  <div class="block" coor-x="" coor-y="" status="blank"></div>
 </div>

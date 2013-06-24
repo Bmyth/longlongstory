@@ -1,7 +1,17 @@
-Lls.Views.Side = Backbone.View.extend({
+Lls.Views.Nav = Backbone.View.extend({
 
     initialize : function(){
-        this.bind_navigation();
+        this.set_position();
+//        this.bind_navigation();
+    },
+
+    set_position : function(){
+        var horizon_size =  (global_blocks_view.blockRowNumber - 2) * global_blocks_view.blockLength;
+        var vertical_size = (global_blocks_view.blockColumnNumber - 2) * global_blocks_view.blockLength;
+        $('.up-nav').css('width', horizon_size + 'px');
+        $('.right-nav').css('height', vertical_size + 'px');
+        $('.down-nav').css('width', horizon_size + 'px');
+        $('.left-nav').css('height', vertical_size + 'px');
     },
 
     show : function() {

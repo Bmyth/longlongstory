@@ -1,9 +1,11 @@
-Lls.Views.Grid = Backbone.View.extend({
+Lls.Views.Blocks = Backbone.View.extend({
 
     initialize : function(){
         offsetX = 1;
         offsetY = 1;
-        Lblock = 160;
+
+        this.blockLength = 200;
+
         focused_block_coorX = 0;
         focused_block_coorY = 0;
 
@@ -12,7 +14,28 @@ Lls.Views.Grid = Backbone.View.extend({
         minY = 0;
         maxY = 5;
 
-        this.init_coordinate();
+        this.blockRowNumber = 0;
+        this.blockColumnNumber = 0;
+
+        this.generate_empty_blocks();
+    },
+
+    generate_empty_blocks : function(){
+        this.calculate_block_number(global_window_view.windowWidth, global_window_view.windowHeight);
+        var total_block_number = this.blockRowNumber * this.blockColumnNumber;
+        var container = $('.block-container');
+
+        container.css('width', (this.blockRowNumber * this.blockLength + 50) + 'px');
+
+        for(var i = 0 ; i < total_block_number; i++){
+            var block = $('.templates .block').clone();
+            block.attr({'coor-x': i % this.blockRowNumber, 'coor-y': parseInt(i / this.blockRowNumber)}).appendTo(container);
+        }
+    },
+
+    calculate_block_number : function(windowWidth, windowHeight){
+        this.blockRowNumber =  parseInt(windowWidth / this.blockLength) + 1;
+        this.blockColumnNumber =  parseInt(windowHeight / this.blockLength) + 1;
     },
 
     render : function() {
@@ -23,15 +46,14 @@ Lls.Views.Grid = Backbone.View.extend({
     },
 
     render_block_with : function(block_data){
-        var block_title_template = "<p class='block-title'></p>";
-        var block_img_template = "<img class='block-img'>";
+        var block_body_template = "<div class='block-body'></div>";
 
         var x = block_data.get('coorX');
         var y = block_data.get('coorY');
 
         var block = this.get_block_at(x, y);
 
-        $(block_img_template).attr('src',block_data.get('img').thumb.url).appendTo(block);
+        $(block_body_template).html(block_data.get('body')).appendTo(block);
     },
 
     render_block_at : function(x, y){
@@ -52,10 +74,6 @@ Lls.Views.Grid = Backbone.View.extend({
     get_block_at : function(x, y){
         var selectString = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
         return $(selectString);
-    },
-
-    init_coordinate : function(){
-
     },
 
     moveDown : function(){

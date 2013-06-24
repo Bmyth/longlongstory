@@ -1,0 +1,19 @@
+.container {overflow: hidden; width: 1410px;}
+/*gird world*/
+.block-container {position: relative; overflow: hidden; width: 1410px;}
+
+.block-container .block {float: left; width: 198px; height: 198px; border: 1px solid #eee; position: relative;}
+.block-container .block:hover {border-color: #aaa;}
+
+/*side panel*/
+.editor-form {position: fixed; width: 200px; height: 100%;}
+.invisible {display: none;}
+/*navigation panel*/
+.up-nav, .right-nav, .down-nav, .left-nav {position: fixed; background-color: #fff; border: 1px solid #ddd; display: none}
+
+.up-nav {top: 0; left: 200px; right: 200px; width: 600px; height: 50px;}
+.right-nav {right: 0; top: 200px; width: 50px; height: 400px;}
+.down-nav {bottom: 0; left: 200px; right: 200px; width: 600px; height: 50px;}
+.left-nav {left: 0; top: 200px; width: 50px; height: 400px;}
+
+/*edit panel*/
