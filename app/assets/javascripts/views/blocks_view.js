@@ -31,6 +31,11 @@ Lls.Views.Blocks = Backbone.View.extend({
             var block = $('.templates .block').clone();
             block.attr({'coor-x': i % this.blockRowNumber, 'coor-y': parseInt(i / this.blockRowNumber)}).appendTo(container);
         }
+
+        minX = 0;
+        maxX = this.blockRowNumber - 1;
+        minY = 0;
+        maxY = this.blockColumnNumber - 1;
     },
 
     calculate_block_number : function(windowWidth, windowHeight){
@@ -77,18 +82,18 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     moveDown : function(){
-        $(".block-world").animate({top: '-320px'},"fast",function(){
-            $(".block-world .block").each(function(){
+        $(".block-container").animate({top: '-200px'},"fast",function(){
+            $(".block-container .block").each(function(){
                 if(parseInt($(this).attr('coor-y')) == minY){
                     $(this).addClass("toBeRemoved");
                 }
             })
-            $(".block-world").find(".toBeRemoved").remove();
+            $(".block-container").find(".toBeRemoved").remove();
             var bottom = maxY + 1;
             for(var i = minX; i <= maxX; i++){
-                global_grid_view.insertBlock(i, bottom, 2);
+                global_blocks_view.insertBlock(i, bottom, 2);
             }
-            $(".block-world").css('top','-160px');
+            $(".block-container").css('top','0px');
             minY ++;
             maxY ++;
             offsetY --;
@@ -96,18 +101,18 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     moveUp : function(){
-        $(".block-world").animate({top: '0px'},"fast",function(){
-            $(".block-world .block").each(function(){
+        $(".block-container").animate({top: '200px'},"fast",function(){
+            $(".block-container .block").each(function(){
                 if(parseInt($(this).attr('coor-y')) == maxY){
                     $(this).addClass("toBeRemoved");
                 }
             })
-            $(".block-world").find(".toBeRemoved").remove();
+            $(".block-container").find(".toBeRemoved").remove();
             var top = minY - 1;
             for(var i = maxX; i >= minX; i --){
-                global_grid_view.insertBlock(i, top, 0);
+                global_blocks_view.insertBlock(i, top, 0);
             }
-            $(".block-world").css('top','-160px');
+            $(".block-container").css('top','0');
             minY --;
             maxY --;
             offsetY ++;
@@ -115,18 +120,18 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     moveRight : function(){
-        $(".block-world").animate({left: '-320px'},"fast",function(){
-            $(".block-world .block").each(function(){
+        $(".block-container").animate({left: '-200px'},"fast",function(){
+            $(".block-container .block").each(function(){
                 if(parseInt($(this).attr('coor-x')) == minX){
                     $(this).addClass("toBeRemoved");
                 }
             })
-            $(".block-world").find(".toBeRemoved").remove();
+            $(".block-container").find(".toBeRemoved").remove();
             var left = maxX + 1;
             for(var i = minY; i <= maxY; i ++){
-                global_grid_view.insertBlock(left, i, 1);
+                global_blocks_view.insertBlock(left, i, 1);
             }
-            $(".block-world").css('left','-160px');
+            $(".block-container").css('left','0px');
             minX ++;
             maxX ++;
             offsetX --;
@@ -134,18 +139,18 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     moveLeft : function(){
-        $(".block-world").animate({left: '0px'},"fast",function(){
-            $(".block-world .block").each(function(){
+        $(".block-container").animate({left: '200px'},"fast",function(){
+            $(".block-container .block").each(function(){
                 if(parseInt($(this).attr('coor-x')) == maxX){
                     $(this).addClass("toBeRemoved");
                 }
             })
-            $(".block-world").find(".toBeRemoved").remove();
+            $(".block-container").find(".toBeRemoved").remove();
             var left = minX - 1;
             for(var i = minY; i <= maxY; i ++){
-                global_grid_view.insertBlock(left, i, 3);
+                global_blocks_view.insertBlock(left, i, 3);
             }
-            $(".block-world").css('left','-160px');
+            $(".block-container").css('left','0px');
             minX --;
             maxX --;
             offsetX ++;
@@ -157,13 +162,13 @@ Lls.Views.Blocks = Backbone.View.extend({
         var block_template = "<div class='block' coor-x='' coor-y='' status='blank'></div>";
         var item = $(block_template).attr('coor-x', x).attr('coor-y', y);
         if(d == 0){
-            item.insertBefore($(".block:first"));
+            item.insertBefore($(".block-container .block:first"));
         }
         if(d == 1){
             item.insertAfter(this.get_block_at(x-1, y));
         }
         if(d == 2){
-            item.insertAfter($(".block:last"));
+            item.insertAfter($(".block-container .block:last"));
         }
         if(d == 3){
             item.insertBefore(this.get_block_at(x+1, y));

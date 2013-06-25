@@ -11,8 +11,6 @@ Lls.Views.Main = Backbone.View.extend({
         global_nav_view = new Lls.Views.Nav();
         global_block_edit_view = new Lls.Views.BlockEdit();
 
-//        global_studio_view = new Lls.Views.Studio();
-
         global_blocks.fetch({success:function(){
 			initialized = true;
 			that.render();
