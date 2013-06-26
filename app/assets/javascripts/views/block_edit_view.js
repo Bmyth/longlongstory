@@ -21,7 +21,9 @@ Lls.Views.BlockEdit = Backbone.View.extend({
         var block = global_blocks.get_block_data_at(focused_block_coorX, focused_block_coorY);
         if(block !== 0){
             $(".editor-form .id").val(block.get('id'));
-            $(".editor-form .ke-edit-iframe").contents().find("html").html(block.get('body'));
+            if(block.get('body')){
+                $(".editor-form .ke-edit-iframe").contents().find("html").html(block.get('body'));
+            }
         }
     },
 

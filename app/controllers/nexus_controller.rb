@@ -13,8 +13,8 @@ class NexusController < ApplicationController
   end
 
   def add_block
-    block = Block.create!
-    block.title = params[:title]
+    block = Block.create
+    block.body = params[:body]
     block.coorX = params[:coorX]
     block.coorY = params[:coorY]
     block.save!
@@ -23,23 +23,11 @@ class NexusController < ApplicationController
 
   def update_block
     block = Block.find(params[:id])
-    block.title = params[:title]
+    block.body = params[:body]
+    block.coorX = params[:coorX]
+    block.coorY = params[:coorY]
     block.save!
     render :json => {:success => 'y'}
-  end
-
-  def update_block_content
-    if(params[:block][:id] != '')
-      block = Block.find(params[:block][:id])
-      block.update_attributes!(params[:block])
-    else
-      block = Block.create
-      block.coorX = params[:block][:coorX]
-      block.coorY = params[:block][:coorY]
-      block.body = params[:block][:body]
-      block.save!
-    end
-    redirect_to "/"
   end
 
   def update_block_with_image

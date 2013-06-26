@@ -68,7 +68,7 @@ Lls.Views.Blocks = Backbone.View.extend({
             this.empty_block_at(x, y);
             this.render_block_with(block);
         }else{
-            this.get_block_at(x, y).children('.block-body').remove();
+            this.empty_block_at(x, y);
         }
     },
 
@@ -77,10 +77,7 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     empty_block_at : function(x, y){
-        var b = this.get_block_at(x, y);
-        b.find('.block-title').remove();
-        b.find('.block-img').remove();
-        b.attr('status','blank');
+        this.get_block_at(x, y).children('.block-body').remove();
     },
 
     get_block_at : function(x, y){
