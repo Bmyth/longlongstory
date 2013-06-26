@@ -1,11 +1,14 @@
 <div class="container">
     <div class= 'editor-form' style="display: none">
-        <%= form_for :block, :url => "/body_upload" do |f| %>
+        <%= form_for :block, :url => "/block_form_update" do |f| %>
             <%= f.kindeditor :body, :simple_mode => true %>
             <%= f.text_field :coorX, :class => 'invisible cx' %>
             <%= f.text_field :coorY, :class => 'invisible cy' %>
+            <%= f.text_field :id, :class => 'invisible id' %>
             <%= f.submit :value=> "submit", :class => "btn" %>
         <% end %>
+        <div class ='edit-opt clear'>clear</div>
+        <div class ='edit-opt back'>back</div>
     </div>
 
     <div class="block-container"></div>

@@ -28,8 +28,17 @@ class NexusController < ApplicationController
     render :json => {:success => 'y'}
   end
 
-  def create_block_with_body
-    block = Block.create! params[:block]
+  def update_block_content
+    if(params[:block][:id] != '')
+      block = Block.find(params[:block][:id])
+      block.update_attributes!(params[:block])
+    else
+      block = Block.create
+      block.coorX = params[:block][:coorX]
+      block.coorY = params[:block][:coorY]
+      block.body = params[:block][:body]
+      block.save!
+    end
     redirect_to "/"
   end
 

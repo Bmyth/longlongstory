@@ -1,8 +1,8 @@
 Lls.Views.Blocks = Backbone.View.extend({
 
     initialize : function(){
-        offsetX = 1;
-        offsetY = 1;
+        offsetX = 0;
+        offsetY = 0;
 
         this.blockLength = 200;
 
@@ -32,6 +32,8 @@ Lls.Views.Blocks = Backbone.View.extend({
             block.attr({'coor-x': i % this.blockRowNumber, 'coor-y': parseInt(i / this.blockRowNumber)}).appendTo(container);
         }
 
+        $(".block").click(global_block_edit_view.show_edit_panel);
+
         minX = 0;
         maxX = this.blockRowNumber - 1;
         minY = 0;
@@ -57,16 +59,21 @@ Lls.Views.Blocks = Backbone.View.extend({
         var y = block_data.get('coorY');
 
         var block = this.get_block_at(x, y);
-
         $(block_body_template).html(block_data.get('body')).appendTo(block);
     },
 
     render_block_at : function(x, y){
         var block = global_blocks.get_block_data_at(x,y);
-        if(block != 0){
+        if(block !== 0){
             this.empty_block_at(x, y);
             this.render_block_with(block);
+        }else{
+            this.get_block_at(x, y).children('.block-body').remove();
         }
+    },
+
+    bind_block_at : function(x, y){
+        this.get_block_at(x, y).click(global_block_edit_view.show_edit_panel);
     },
 
     empty_block_at : function(x, y){
@@ -173,6 +180,7 @@ Lls.Views.Blocks = Backbone.View.extend({
         if(d == 3){
             item.insertBefore(this.get_block_at(x+1, y));
         }
-        this.render_block_at(x,y);
+        this.render_block_at(x, y);
+        this.bind_block_at(x, y);
     }
 });

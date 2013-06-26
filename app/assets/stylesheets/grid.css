@@ -4,11 +4,16 @@
 
 .block-container .block {float: left; width: 198px; height: 198px; border: 1px solid #eee; position: relative;}
 .block-container .block:hover {border-color: #aaa;}
+.block-container .block.edited {border-color: #333;}
 
 /*side panel*/
 .editor-form {position: fixed; width: 200px; height: 100%;}
 .invisible {display: none;}
+.editor-form form .ke-container .ke-edit {height: 200px !important;}
+.editor-form form .ke-container .ke-edit .ke-edit-iframe {height: 200px !important;}
+.editor-form form .ke-container .ke-statusbar {display: none;}
 .editor-form form input.btn {border: none; width: 100%; height: 28px;}
+.editor-form .edit-opt {width: 100%; height: 28px; background-color: #aaa; margin-top: 10px; text-align: center;}
 
 /*navi*/
 .nav {
