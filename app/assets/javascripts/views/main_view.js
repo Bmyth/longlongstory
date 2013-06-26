@@ -4,10 +4,9 @@ Lls.Views.Main = Backbone.View.extend({
 
 	initialize : function(){
 		var that = this;
-		global_main_view = this;
-        global_window_view = new Lls.Views.Window();
+        global_window = new Lls.Views.Window();
         global_blocks = new Lls.Collections.Blocks();
-        global_block_edit_view = new Lls.Views.BlockEdit();
+        global_side_panel_view = new Lls.Views.SidePanel();
         global_blocks_view = new Lls.Views.Blocks();
         global_nav_view = new Lls.Views.Nav();
 

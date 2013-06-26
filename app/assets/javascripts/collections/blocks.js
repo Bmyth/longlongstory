@@ -23,7 +23,7 @@ Lls.Collections.Blocks = Backbone.Collection.extend({
         if (block === 0) {
             this.add({'coorX': x, 'coorY': y, 'body': content}, {success: b});
         } else {
-            this.get(block.get('id')).save({body:content},{success:b});
+            block.save({body:content},{success:b});
         }
     },
 

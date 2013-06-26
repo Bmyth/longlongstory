@@ -21,7 +21,7 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     generate_empty_blocks : function(){
-        this.calculate_block_number(global_window_view.windowWidth, global_window_view.windowHeight);
+        this.calculate_block_number(global_window.windowWidth, global_window.windowHeight);
         var total_block_number = this.blockRowNumber * this.blockColumnNumber;
         var container = $('.block-container');
 
@@ -32,7 +32,7 @@ Lls.Views.Blocks = Backbone.View.extend({
             block.attr({'coor-x': i % this.blockRowNumber, 'coor-y': parseInt(i / this.blockRowNumber)}).appendTo(container);
         }
 
-        $(".block").click(global_block_edit_view.show_edit_panel);
+        $(".block").click(this.click);
 
         minX = 0;
         maxX = this.blockRowNumber - 1;
@@ -73,7 +73,8 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     bind_block_at : function(x, y){
-        this.get_block_at(x, y).click(global_block_edit_view.show_edit_panel);
+        var that = this;
+        this.get_block_at(x, y).click(that.click);
     },
 
     empty_block_at : function(x, y){
@@ -83,6 +84,30 @@ Lls.Views.Blocks = Backbone.View.extend({
     get_block_at : function(x, y){
         var selectString = ".block[coor-x='" + x + "'][coor-y='" + y + "']";
         return $(selectString);
+    },
+
+    click :function(){
+        var x = parseInt($(this).attr('coor-x'));
+        var y = parseInt($(this).attr('coor-y'));
+        focused_block_coorX = x;
+        focused_block_coorY = y;
+
+        if(global_side_panel_view.is_open()){
+            global_blocks_view.mark_edited_at(x, y);
+            global_side_panel_view.fill_block_form_at(x, y);
+        }else{
+            global_blocks_view.mark_edited_at(x, y);
+            global_side_panel_view.show_edit_panel_at(x, y)
+        }
+    },
+
+    mark_edited_at : function(x, y){
+        this.clear_mark();
+        global_blocks_view.get_block_at(x, y).addClass('edited');
+    },
+
+    clear_mark : function(){
+        $(".block.edited").removeClass('edited');
     },
 
     moveDown : function(){
