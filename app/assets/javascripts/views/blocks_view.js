@@ -16,16 +16,23 @@ Lls.Views.Blocks = Backbone.View.extend({
 
         this.blockRowNumber = 0;
         this.blockColumnNumber = 0;
+        this.zoomRate = 1;
 
         this.generate_empty_blocks();
+    },
+
+    zoom_rate : function(){
+      return this.zoomRate;
     },
 
     generate_empty_blocks : function(){
         this.calculate_block_number(global_window.windowWidth, global_window.windowHeight);
         var total_block_number = this.blockRowNumber * this.blockColumnNumber;
         var container = $('.block-container');
+        var zoom = (100 / this.zoomRate) + '%';
+        var offset = this.zoomRate * 50;
 
-        container.css('width', (this.blockRowNumber * this.blockLength + 50) + 'px');
+        container.css({'width': (this.blockRowNumber * this.blockLength + offset) + 'px','zoom' : zoom});
 
         for(var i = 0 ; i < total_block_number; i++){
             var block = $('.templates .block').clone();
@@ -41,8 +48,8 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     calculate_block_number : function(windowWidth, windowHeight){
-        this.blockRowNumber =  parseInt(windowWidth / this.blockLength) + 1;
-        this.blockColumnNumber =  parseInt(windowHeight / this.blockLength) + 1;
+        this.blockRowNumber =  parseInt(windowWidth / this.blockLength) * this.zoomRate + 1;
+        this.blockColumnNumber =  parseInt(windowHeight / this.blockLength) * this.zoomRate + 1;
     },
 
     render : function() {
@@ -110,22 +117,25 @@ Lls.Views.Blocks = Backbone.View.extend({
         $(".block.edited").removeClass('edited');
     },
 
+//    apply rate based move just in move down
     moveDown : function(){
-        $(".block-container").animate({top: '-200px'},"fast",function(){
+        var position_offset = '-' + 200 * global_blocks_view.zoomRate + 'px';
+        var speed = 250 / global_blocks_view.zoomRate;
+        $(".block-container").animate({top: position_offset}, speed, function(){
             $(".block-container .block").each(function(){
-                if(parseInt($(this).attr('coor-y')) == minY){
+                if(parseInt($(this).attr('coor-y')) <= minY + global_blocks_view.zoomRate - 1){
                     $(this).addClass("toBeRemoved");
                 }
             })
             $(".block-container").find(".toBeRemoved").remove();
-            var bottom = maxY + 1;
-            for(var i = minX; i <= maxX; i++){
-                global_blocks_view.insertBlock(i, bottom, 2);
-            }
+            for(var bottom = maxY + 1; bottom <= maxY + global_blocks_view.zoomRate; bottom++)
+                for(var i = minX; i <= maxX; i++){
+                    global_blocks_view.insertBlock(i, bottom, 2);
+                }
             $(".block-container").css('top','0px');
-            minY ++;
-            maxY ++;
-            offsetY --;
+            minY += global_blocks_view.zoomRate;
+            maxY += global_blocks_view.zoomRate;
+            offsetY -= global_blocks_view.zoomRate;
         });
     },
 
@@ -204,5 +214,31 @@ Lls.Views.Blocks = Backbone.View.extend({
         }
         this.render_block_at(x, y);
         this.bind_block_at(x, y);
+    },
+
+    zoom_in : function(){
+        if(global_blocks_view.zoomRate !== 1){
+            global_blocks_view.zoomRate = global_blocks_view.zoomRate /2;
+            global_blocks_view.clear_all();
+            global_blocks_view.generate_empty_blocks();
+            global_blocks_view.render();
+        }else{
+
+        }
+    },
+
+    zoom_out : function(){
+        if(global_blocks_view.zoomRate !== 4){
+            global_blocks_view.zoomRate = global_blocks_view.zoomRate * 2;
+            global_blocks_view.clear_all();
+            global_blocks_view.generate_empty_blocks();
+            global_blocks_view.render();
+        }else{
+
+        }
+    },
+
+    clear_all : function(){
+        $(".block-container").find(".block").remove();
     }
 });
