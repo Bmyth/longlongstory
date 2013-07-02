@@ -28,6 +28,7 @@ Lls.Views.Nav = Backbone.View.extend({
             var intervalId = window.setInterval(event, intervalTime);
             $(this).mouseup(function(){
                 window.clearInterval(intervalId);
+                global_coordination_view.show();
             })
         });
     }

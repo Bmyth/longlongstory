@@ -7,6 +7,7 @@ Lls.Views.Main = Backbone.View.extend({
         global_window = new Lls.Views.Window();
         global_blocks = new Lls.Collections.Blocks();
         global_side_panel_view = new Lls.Views.SidePanel();
+        global_coordination_view = new Lls.Views.Coordination();
         global_blocks_view = new Lls.Views.Blocks();
         global_nav_view = new Lls.Views.Nav();
 

@@ -152,8 +152,7 @@ Lls.Views.Blocks = Backbone.View.extend({
     //apply rate based move just in move down
     moveDown : function(){
         var position_offset = '-' + 200 * global_blocks_view.zoomRate + 'px';
-        var speed = 250 / global_blocks_view.zoomRate;
-        $(".block-container").animate({top: position_offset}, speed, function(){
+        $(".block-container").animate({top: position_offset}, 'fast', function(){
             $(".block-container .block").each(function(){
                 if(parseInt($(this).attr('coor-y')) <= minY + global_blocks_view.zoomRate - 1){
                     $(this).addClass("toBeRemoved");
@@ -168,6 +167,7 @@ Lls.Views.Blocks = Backbone.View.extend({
             minY += global_blocks_view.zoomRate;
             maxY += global_blocks_view.zoomRate;
             offsetY -= global_blocks_view.zoomRate;
+
         });
     },
 
@@ -184,6 +184,8 @@ Lls.Views.Blocks = Backbone.View.extend({
                 global_blocks_view.insertBlock(i, top, 0);
             }
             $(".block-container").css('top','0');
+            $(".coordination-bar-x").css('top','0');
+
             minY --;
             maxY --;
             offsetY ++;
@@ -203,6 +205,7 @@ Lls.Views.Blocks = Backbone.View.extend({
                 global_blocks_view.insertBlock(left, i, 1);
             }
             $(".block-container").css('left','0px');
+
             minX ++;
             maxX ++;
             offsetX --;
@@ -222,6 +225,7 @@ Lls.Views.Blocks = Backbone.View.extend({
                 global_blocks_view.insertBlock(left, i, 3);
             }
             $(".block-container").css('left','0px');
+
             minX --;
             maxX --;
             offsetX ++;

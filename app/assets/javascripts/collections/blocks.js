@@ -34,5 +34,25 @@ Lls.Collections.Blocks = Backbone.Collection.extend({
                 return false;
             }
         })
+    },
+
+    block_number_at_column : function(n){
+        var sum = 0
+        this.forEach(function (block) {
+            if (block.get("coorX") === n) {
+                sum ++;
+            }
+        })
+        return sum;
+    },
+
+    block_number_at_row :function(n){
+        var sum = 0
+        this.forEach(function (block) {
+            if (block.get("coorY") === n) {
+                sum ++;
+            }
+        })
+        return sum;
     }
 });
