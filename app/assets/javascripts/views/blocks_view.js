@@ -35,11 +35,14 @@ Lls.Views.Blocks = Backbone.View.extend({
         container.css({'width': (this.blockRowNumber * this.blockLength + offset) + 'px','zoom' : zoom});
 
         for(var i = 0 ; i < total_block_number; i++){
-            var block = $('.templates .block').clone();
+            var block = $('.templates .block').clone().addClass('r' + this.zoomRate);
             block.attr({'coor-x': i % this.blockRowNumber, 'coor-y': parseInt(i / this.blockRowNumber)}).appendTo(container);
         }
 
         $(".block").click(this.click);
+        if(this.zoomRate !== 1){
+            $(".block").hover(this.show_block_detail, this.remove_block_detail);
+        }
 
         minX = 0;
         maxX = this.blockRowNumber - 1;
@@ -65,7 +68,7 @@ Lls.Views.Blocks = Backbone.View.extend({
         var x = block_data.get('coorX');
         var y = block_data.get('coorY');
 
-        var block = this.get_block_at(x, y);
+        var block = this.get_block_at(x, y).addClass('filled');
         $(block_body_template).html(block_data.get('body')).appendTo(block);
     },
 
@@ -77,6 +80,7 @@ Lls.Views.Blocks = Backbone.View.extend({
         }else{
             this.empty_block_at(x, y);
         }
+        global_blocks_view.get_block_at(x, y).addClass("r" + global_blocks_view.zoomRate);
     },
 
     bind_block_at : function(x, y){
@@ -94,17 +98,45 @@ Lls.Views.Blocks = Backbone.View.extend({
     },
 
     click :function(){
-        var x = parseInt($(this).attr('coor-x'));
-        var y = parseInt($(this).attr('coor-y'));
-        focused_block_coorX = x;
-        focused_block_coorY = y;
+        if(global_blocks_view.zoomRate === 1){
+            var x = parseInt($(this).attr('coor-x'));
+            var y = parseInt($(this).attr('coor-y'));
+            focused_block_coorX = x;
+            focused_block_coorY = y;
 
-        if(global_side_panel_view.is_open()){
-            global_blocks_view.mark_edited_at(x, y);
-            global_side_panel_view.fill_block_form_at(x, y);
-        }else{
-            global_blocks_view.mark_edited_at(x, y);
-            global_side_panel_view.show_edit_panel_at(x, y)
+            if(global_side_panel_view.is_open()){
+                global_blocks_view.mark_edited_at(x, y);
+                global_side_panel_view.fill_block_form_at(x, y);
+            }else{
+                global_blocks_view.mark_edited_at(x, y);
+                global_side_panel_view.show_edit_panel_at(x, y)
+            }
+        }
+    },
+
+    show_block_detail : function(){
+        if($(this).hasClass('filled')){
+            if($(this).css('overflow') === 'hidden'){
+                var x = parseInt($(this).attr('coor-x'));
+                var y = parseInt($(this).attr('coor-y'));
+                var content = global_blocks_view.get_block_at(x, y).find('.block-body').html();
+                var dp = $('.detail-panel').clone();
+                dp.children('.content').html(content);
+                dp.show().css('zoom',global_blocks_view.zoomRate).appendTo(this);
+                $(this).css('overflow','visible').children('.block-body').html('');
+            }
+        }
+    },
+
+    remove_block_detail : function(){
+        if($(this).hasClass('filled')){
+            if($(this).css('overflow') === 'visible'){
+                var x = parseInt($(this).attr('coor-x'));
+                var y = parseInt($(this).attr('coor-y'));
+                $(this).find(".detail-panel").remove();
+                global_blocks_view.render_block_at(x, y);
+                $(this).css('overflow','hidden');
+            }
         }
     },
 
@@ -117,7 +149,7 @@ Lls.Views.Blocks = Backbone.View.extend({
         $(".block.edited").removeClass('edited');
     },
 
-//    apply rate based move just in move down
+    //apply rate based move just in move down
     moveDown : function(){
         var position_offset = '-' + 200 * global_blocks_view.zoomRate + 'px';
         var speed = 250 / global_blocks_view.zoomRate;

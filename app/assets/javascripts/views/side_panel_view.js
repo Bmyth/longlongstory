@@ -12,7 +12,8 @@ Lls.Views.SidePanel = Backbone.View.extend({
 
     show_edit_panel_at : function(x, y){
         $(".editor-form").show();
-        $(".block-container").css('left','200px');
+        var leftOffSet = 200 * global_blocks_view.zoom_rate() + 'px';
+        $(".block-container").css('left',leftOffSet);
 
         global_side_panel_view.fill_block_form_at(x, y);
         global_side_panel_view.bind_opt_event();
@@ -26,8 +27,10 @@ Lls.Views.SidePanel = Backbone.View.extend({
         if(block !== 0){
             $(".editor-form .id").val(block.get('id'));
             if(block.get('body')){
-                $(".editor-form .ke-edit-iframe").contents().find("html").html(block.get('body'));
+                $(".editor-form .ke-edit-iframe").contents().find("body").html(block.get('body'));
             }
+        }else{
+            $(".editor-form .ke-edit-iframe").contents().find("body").html('');
         }
     },
 

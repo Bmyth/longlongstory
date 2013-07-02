@@ -2,9 +2,10 @@
 /*gird world*/
 .block-container {position: relative; overflow: hidden; width: 1410px;}
 
-.block-container .block {float: left; width: 198px; height: 198px; border: 1px solid #eee; position: relative; overflow: hidden;}
-.block-container .block:hover {border-color: #aaa;}
+.block-container .block {float: left; width: 198px; height: 198px; border: 1px solid #fff; position: relative; overflow: hidden;}
+.block-container .block.r1:hover {border-color: #aaa;}
 .block-container .block.edited {border-color: #333;}
+.block-container .block.filled {border-color: #aaa;}
 
 /*side panel*/
 .editor-form {position: fixed; width: 200px; height: 100%;}
@@ -34,4 +35,7 @@
     background-color: #fff;
     float: left;
 }
+
+/*detail panel*/
+.detail-panel {position: absolute; z-index: 30; top: 0; width: 200px; height: 200px; background: #fff; border: 1px solid #aaa;}
 
