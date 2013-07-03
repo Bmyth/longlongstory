@@ -103,14 +103,10 @@ Lls.Views.Blocks = Backbone.View.extend({
             var y = parseInt($(this).attr('coor-y'));
             focused_block_coorX = x;
             focused_block_coorY = y;
+            global_blocks_view.mark_edited_at(x, y);
+            global_side_panel_view.show(x, y);
+        }else{
 
-            if(global_side_panel_view.is_open()){
-                global_blocks_view.mark_edited_at(x, y);
-                global_side_panel_view.fill_block_form_at(x, y);
-            }else{
-                global_blocks_view.mark_edited_at(x, y);
-                global_side_panel_view.show_edit_panel_at(x, y)
-            }
         }
     },
 
