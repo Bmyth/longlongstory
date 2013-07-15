@@ -1,21 +1,35 @@
-Lls.Views.Window = Backbone.View.extend({
+define(function(){
+    var windowWidth = 0;
+    var windowHeight = 0;
 
-    initialize : function(){
-        this.windowWidth = 0;
-        this.windowHeight = 0;
-        this.get_window_size();
-    },
+    var initialize = function(){
+        get_window_size();
+    };
 
-    get_window_size :function(){
+    var get_window_size = function(){
         if (window.innerHeight) {  // all except Explorer
-            this.windowWidth = window.innerWidth;
-            this.windowHeight = window.innerHeight;
+            windowWidth = window.innerWidth;
+            windowHeight = window.innerHeight;
         } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
-            this.windowWidth = document.documentElement.clientWidth;
-            this.windowHeight = document.documentElement.clientHeight;
+            windowWidth = document.documentElement.clientWidth;
+            windowHeight = document.documentElement.clientHeight;
         } else if (document.body) { // other Explorers
-            this.windowWidth = document.body.clientWidth;
-            this.windowHeight = document.body.clientHeight;
+            windowWidth = document.body.clientWidth;
+            windowHeight = document.body.clientHeight;
         }
-    }
-});
+    };
+
+    var getWidth = function(){
+        return windowWidth;
+    };
+
+    var getHeight = function(){
+        return windowHeight;
+    };
+
+    return {
+        initialize : initialize,
+        windowWidth : getWidth,
+        windowHeight : getHeight
+    };
+})

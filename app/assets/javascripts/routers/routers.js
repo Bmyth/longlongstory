@@ -1,14 +1,22 @@
-Lls.Routers.Main = Backbone.Router.extend({
+define(['backbone', 'views/mainView'],function(Backbone, MainView){
+    var AppRouter = Backbone.Router.extend({
+        routes : {
+            '*actions' : 'index'
+        }
+    });
 
-	routes : {
-		"/" : "index"
-	},
+    var initialize = function(){
+       var router = new AppRouter;
+       MainView.initialize();
 
-    initialize : function(){
-        this.view = new Lls.Views.Main();
-    },
+       router.on('route:index', function(){
+           MainView.render();
+       });
 
-    index: function(){
-        this.view.render();
-    }
+       Backbone.history.start();
+    };
+
+    return {
+        initialize : initialize
+    };
 });
